@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAS Date Converter</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+  <div class="container mt-5">
+    <h2 class="mb-4">SAS Date Converter</h2>
+
+    <div class="form-group">
+      <label for="sasDate">Masukkan Tanggal SAS:</label>
+      <input type="number" class="form-control" id="sasDate" placeholder="Masukkan nilai SAS Date" required>
+    </div>
+
+    <button class="btn btn-primary" onclick="convertSAS()">Konversi</button>
+
+    <p id="outputDate" class="mt-3"></p>
+  </div>
+
+  <!-- Bootstrap JS and Popper.js (optional) -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <script>
+    function convertSAS() {
+      var sasDateInput = document.getElementById('sasDate');
+      var outputDate = document.getElementById('outputDate');
+
+      var sasDate = parseInt(sasDateInput.value);
+      var formattedDate = convertSASToDate(sasDate);
+
+      outputDate.textContent = 'Tanggal yang diformat: ' + formattedDate;
+    }
+
+    function convertSASToDate(sasDate) {
+      var sasReferenceDate = new Date(1960, 0, 2);
+      var sasMilliseconds = (sasDate) * 24 * 60 * 60 * 1000;
+      var resultDate = new Date(sasReferenceDate.getTime() + sasMilliseconds);
+
+      var day = resultDate.getDate();
+      var month = resultDate.toLocaleString('default', { month: 'short' });
+      var year = resultDate.getFullYear();
+
+      var formattedDate = `${day.toString().padStart(2, '0')} ${month} ${year}`;
+      return formattedDate;
+    }
+  </script>
+
+</body>
+</html>
